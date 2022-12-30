@@ -7,6 +7,7 @@ volumes:
 services:
   postgres:
       image: 'postgres:13.1-alpine'
+      container_name: 'postgree_db'
       volumes:
         - postgres_data:/var/lib/postgresql/data
       environment:
@@ -18,10 +19,15 @@ services:
   app: 
      image: 'app_posterr'
      container_name: 'app_posterr'
+     environment:
+        DATABASE: posterr
+        DATABASE_USER: posterr
+        DATABASE_HOST: postgree_db
+        DATABASE_PASSWORD: posterr123
      build:
        context: .
        dockerfile: ./Dockerfile
      ports:
        - 3001:3001
-    depends_on:
+     depends_on:
        - postgres
