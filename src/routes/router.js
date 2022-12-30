@@ -5,3 +5,5 @@ const axios = require('axios')
 router.post('/',async function (req,res){
     console.log(req.body)
 });
+
+module.exports= router;
