@@ -1,27 +1,25 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/database");
-const Posts = require("./posts.js");
-
-const User = db.define("users", {
+const Posts = db.define("posts", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
   },
-  username: {
+  message: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true
   },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  password: {
-    type: Sequelize.STRING,
+  data: {
+    type: Sequelize.DATE,
     allowNull: false
   }
 });
-User.hasMany(Posts, { as: "posts" });
-module.exports = User;
+
+Posts.associate = function (models) {
+  Posts.belongsTo(models.users, { foreignKey: "id", as: "userId" });
+};
+
+module.exports = Posts;

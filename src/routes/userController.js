@@ -4,16 +4,19 @@ const userRepository = require("../repository/userRepository.js");
 
 router.post("/create", async function (req, res) {
   if (typeof req.body === "undefined") {
-    res.status(400).json({ message: "Need to provide a body" });
+    return res.status(400).json({ message: "Need to provide a body" });
   }
-  if (req.username || req.password || req.email) {
-    res.status(400).json({ message: "Some parameter are missing" });
+  if (
+    typeof req.body.username === "undefined" ||
+    typeof req.body.password === "undefined" ||
+    typeof req.body.email === "undefined"
+  ) {
+    return res.status(400).json({ message: "Some parameter are missing" });
   }
   const userModel = {
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password,
-    role: req.body.role
+    password: req.body.password
   };
   try {
     const user = await userRepository.createUser(userModel);
@@ -44,16 +47,19 @@ router.put("/:id", async function (req, res) {
     return res.status(400).json({ message: "Missing User id" });
   }
   if (typeof req.body === "undefined") {
-    res.status(400).json({ message: "Need to provide a body" });
+    return res.status(400).json({ message: "Need to provide a body" });
   }
-  if (req.username || req.password || req.email) {
-    res.status(400).json({ message: "Some parameter are missing" });
+  if (
+    typeof req.body.username === "undefined" ||
+    typeof req.body.password === "undefined" ||
+    typeof req.body.email === "undefined"
+  ) {
+    return res.status(400).json({ message: "Some parameter are missing" });
   }
   const userModel = {
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password,
-    role: req.body.role
+    password: req.body.password
   };
   try {
     const user = await userRepository.updateUserById(req.params.id, userModel);
