@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const axios = require('axios')
+// const axios = require('axios')
 const usersController = require ('./userController')
 router.post('/', async function (req, res) {
     console.log(req.body)
