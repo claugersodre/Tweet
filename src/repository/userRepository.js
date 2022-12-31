@@ -1,5 +1,5 @@
 const User = require("../models/users.js");
-
+const Post = require("../models/posts.js");
 const createUser = async (userModel) => {
   try {
     const user = await User.create(userModel);
@@ -34,6 +34,18 @@ const getUserById = async (id) => {
     return error;
   }
 };
+const getUserByIdAndUsersPosts = async (id) => {
+  try {
+    const result = await User.findOne({ where: { id }, include: Post });
+    if (result) {
+      return result;
+    } else {
+      return { message: `Can't find user with id ${id}`, status: 404 };
+    }
+  } catch (error) {
+    return error;
+  }
+};
 const getAllUsers = async () => {
   try {
     return await User.findAll();
@@ -58,6 +70,7 @@ const factory = {
   getUserById,
   getAllUsers,
   deleteUserById,
-  updateUserById
+  updateUserById,
+  getUserByIdAndUsersPosts
 };
 module.exports = factory;

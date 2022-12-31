@@ -16,7 +16,10 @@ const User = db.define("users", {
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: DataTypes.STRING,
@@ -26,5 +29,5 @@ const User = db.define("users", {
     }
   }
 });
-User.hasMany(Post, { as: "posts" });
+User.hasMany(Post);
 module.exports = User;

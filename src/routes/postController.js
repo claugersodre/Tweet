@@ -86,6 +86,7 @@ router.get("/:id", async function (req, res) {
     return res.status(500).json(error);
   }
 });
+
 router.delete("/:id", async function (req, res) {
   if (req.params.id == null) {
     return res.status(400).json({ message: "Missing Posts id" });

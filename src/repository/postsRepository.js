@@ -1,5 +1,5 @@
-const Posts = require("../models/posts");
-
+const Posts = require("../models/posts.js");
+const User = require("../models/users.js");
 const createPosts = async (PostsModel) => {
   try {
     const posts = await Posts.create(PostsModel);
@@ -24,7 +24,7 @@ const deletePostsById = async (id) => {
 };
 const getPostsById = async (id) => {
   try {
-    const result = await Posts.findByPk(id);
+    const result = await Posts.findOne({ where: { id } });
     if (result) {
       return result;
     } else {
