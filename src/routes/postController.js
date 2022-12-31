@@ -28,9 +28,12 @@ router.post("/create", async function (req, res) {
   }
 });
 
-router.get("/getAll", async function (req, res) {
+router.get("/getAll/:page?", async function (req, res) {
   try {
-    const allPostss = await postsRepository.getAllPosts();
+    // Format pagination
+    let page = req.params.page ? req.params.page * 1 : 0;
+    page *= process.env.PAGINATION * 1;
+    const allPostss = await postsRepository.getAllPosts(page);
     console.log(
       "OK getAll POSTS: ",
       allPostss.map((el) => el.dataValues)

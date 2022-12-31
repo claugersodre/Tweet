@@ -1,9 +1,9 @@
-const User = require("../models/users");
+const User = require("../models/users.js");
 
 const createUser = async (userModel) => {
   try {
     const user = await User.create(userModel);
-    console.log("OK createOne USER: ", user);
+    console.log("OK createOne USER: ", user.toJSON());
     return user;
   } catch (error) {
     console.log("ERROR in createOne " + "USER:", error);

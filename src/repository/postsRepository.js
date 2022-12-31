@@ -3,7 +3,7 @@ const Posts = require("../models/posts");
 const createPosts = async (PostsModel) => {
   try {
     const posts = await Posts.create(PostsModel);
-    console.log("OK createOne Posts: ", posts);
+    console.log("OK createOne Posts: ", posts.toJSON());
     return posts;
   } catch (error) {
     console.log("ERROR in createOne " + "Posts:", error);
@@ -48,9 +48,15 @@ const getPostsByUserId = async (userId) => {
     return error;
   }
 };
-const getAllPosts = async () => {
+const getAllPosts = async (page) => {
   try {
-    return await Posts.findAll();
+    // Get Pagination Limit
+    const limitPage = process.env.PAGINATION * 1;
+    return await Posts.findAll({
+      offset: page || 0,
+      limit: limitPage,
+      order: [["createdAt", "DESC"]]
+    });
   } catch (error) {
     return error;
   }

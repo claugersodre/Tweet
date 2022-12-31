@@ -1,25 +1,25 @@
-const Sequelize = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../utils/database");
-const Posts = db.define("posts", {
+const Post = db.define("posts", {
   id: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
   },
   message: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    unique: false
   },
   data: {
-    type: Sequelize.DATE,
+    type: DataTypes.DATE,
     allowNull: false
   }
 });
 
-Posts.associate = function (models) {
-  Posts.belongsTo(models.users, { foreignKey: "id", as: "userId" });
+Post.associate = function (models) {
+  Post.belongsTo(models.users, { foreignKey: "id", as: "userId" });
 };
 
-module.exports = Posts;
+module.exports = Post;

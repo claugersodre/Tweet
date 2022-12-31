@@ -1,27 +1,30 @@
-const Sequelize = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../utils/database");
-const Posts = require("./posts.js");
-
+const Post = require("./posts.js");
+const hash = require("../services/hashFunction.js");
 const User = db.define("users", {
   id: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
   },
   username: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true
   },
   email: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false
   },
   password: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: DataTypes.STRING,
+    allowNull: false,
+    set(value) {
+      this.setDataValue("password", hash.hash(value));
+    }
   }
 });
-User.hasMany(Posts, { as: "posts" });
+User.hasMany(Post, { as: "posts" });
 module.exports = User;

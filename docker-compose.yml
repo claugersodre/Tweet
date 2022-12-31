@@ -24,6 +24,7 @@ services:
         DATABASE_USER: posterr
         DATABASE_HOST: posterr
         DATABASE_PASSWORD: posterr123
+        PAGINATION: 10
      build:
        context: .
        dockerfile: ./Dockerfile
