@@ -10,8 +10,30 @@ const createUser = async (userModel) => {
     return error;
   }
 };
-const deleteUser = async () => {};
-const getUserById = async () => {};
+const deleteUserById = async (id) => {
+  try {
+    const result = await User.destroy({ where: { id } });
+    if (result) {
+      return { message: "User deleted with success" };
+    } else {
+      return { message: `Can't find user ${id} to delete`, status: 404 };
+    }
+  } catch (error) {
+    return error;
+  }
+};
+const getUserById = async (id) => {
+  try {
+    const result = await User.findByPk(id);
+    if (result) {
+      return result;
+    } else {
+      return { message: `Can't find user with id ${id}`, status: 404 };
+    }
+  } catch (error) {
+    return error;
+  }
+};
 const getAllUsers = async () => {
   try {
     return await User.findAll();
@@ -19,12 +41,23 @@ const getAllUsers = async () => {
     return error;
   }
 };
-const updateUserById = async () => {};
+const updateUserById = async (id, userModel) => {
+  try {
+    const result = await User.update(userModel, { where: { id } });
+    if (result[0] === 1) {
+      return { message: "User updated with success" };
+    } else {
+      return { message: `Can't find user ${id} to update`, status: 404 };
+    }
+  } catch (error) {
+    return error;
+  }
+};
 const factory = {
   createUser,
-  deleteUser,
   getUserById,
   getAllUsers,
+  deleteUserById,
   updateUserById
 };
 module.exports = factory;
