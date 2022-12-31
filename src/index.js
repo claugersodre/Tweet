@@ -13,7 +13,8 @@ const port = process.env.PORT || 3000;
 (async () => {
   try {
     await sequelize.sync(
-      { force: false } // Reset db every time
+      { force: false }, // Reset db every time
+      { alter: true }
     );
     app.listen(port, function () {
       console.log("listen on port " + port);
