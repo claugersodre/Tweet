@@ -8,12 +8,14 @@ router.post("/create", async function (req, res) {
     return res.status(400).json({ message: "Need to provide a body" });
   }
   if (
-    typeof req.body.postId === "undefined" 
+    typeof req.body.postId === "undefined" ||
+    typeof req.body.userId === "undefined"
   ) {
     return res.status(400).json({ message: "Some parameter are missing" });
   }
   const rePostsModel = {
     postId: req.body.postId,
+    userId: req.body.userId,
     data: luxon.DateTime.now()
   };
   try {
@@ -51,12 +53,14 @@ router.put("/:id", async function (req, res) {
     return res.status(400).json({ message: "Need to provide a body" });
   }
   if (
-    typeof req.body.postId === "undefined" 
+    typeof req.body.postId === "undefined" ||
+    typeof req.body.userId === "undefined"
   ) {
     return res.status(400).json({ message: "Some parameter are missing" });
   }
   const rePostsModel = {
     postId: req.body.postId,
+    userId: req.body.userId,
     data: luxon.DateTime.now()
   };
   try {

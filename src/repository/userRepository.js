@@ -1,5 +1,6 @@
 const User = require("../models/users.js");
 const Post = require("../models/posts.js");
+const RePost = require("../models/rePost.js");
 const createUser = async (userModel) => {
   try {
     const user = await User.create(userModel);
@@ -36,7 +37,23 @@ const getUserById = async (id) => {
 };
 const getUserByIdAndUsersPosts = async (id) => {
   try {
-    const result = await User.findOne({ where: { id }, include: Post });
+    const result = await User.findOne({
+      where: { id },
+      include: [
+        {
+          model: Post,
+          include: {
+            model: RePost
+          }
+        }
+      ],
+      order: [
+        // sort by High model, in descending order first.
+        [Post, "createdAt", "DESC"],
+        // then sort by the nested model.
+        [Post, RePost, "createdAt", "DESC"]
+      ]
+    });
     if (result) {
       return result;
     } else {

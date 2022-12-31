@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../utils/database");
 const Post = require("./posts.js");
+const RePost = require("./rePost.js");
 const hash = require("../services/hashFunction.js");
 const User = db.define("users", {
   id: {
@@ -30,4 +31,5 @@ const User = db.define("users", {
   }
 });
 User.hasMany(Post);
+User.hasMany(RePost);
 module.exports = User;

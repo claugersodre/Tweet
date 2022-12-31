@@ -16,5 +16,8 @@ const RePost = db.define("reposts", {
 RePost.associate = function (models) {
   RePost.belongsTo(models.posts, { foreignKey: "id", as: "postId" });
 };
+RePost.associate = function (models) {
+  RePost.belongsTo(models.users, { foreignKey: "id", as: "userId" });
+};
 
 module.exports = RePost;
