@@ -1,6 +1,9 @@
 const User = require("../models/users.js");
 const Post = require("../models/posts.js");
 const RePost = require("../models/rePost.js");
+const luxon = require("luxon");
+const { Op } = require("sequelize");
+
 const createUser = async (userModel) => {
   try {
     const user = await User.create(userModel);
@@ -36,9 +39,21 @@ const getUserById = async (id) => {
   }
 };
 const getUserByIdAndUsersPosts = async (id) => {
+  const endDate = luxon.DateTime.now();
+  const startDate = luxon.DateTime.local().minus({ days: 7 });
+  // Valid dateTime to filter "2018-07-08T14:06:48.000Z", "2023-10-08T22:33:54.000Z"
   try {
     const result = await User.findOne({
-      where: { id },
+      where: {
+        [Op.and]: [
+          { id },
+          {
+            createdAt: {
+              [Op.between]: [startDate, endDate]
+            }
+          }
+        ]
+      },
       include: [
         {
           model: Post,

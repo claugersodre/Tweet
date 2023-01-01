@@ -28,12 +28,18 @@ router.post("/create", async function (req, res) {
   }
 });
 
-router.get("/getAll/:page?", async function (req, res) {
+router.post("/getAll/", async function (req, res) {
   try {
     // Format pagination
-    let page = req.params.page ? req.params.page * 1 : 0;
+    let page = req.body.page ? req.body.page * 1 - 1 : 0;
+    const startDate = req.body.startDate ? req.body.startDate * 1 : 365;
+    const endDate = req.body.endDate ? req.body.endDate * 1 : 0;
     page *= process.env.PAGINATION * 1;
-    const allPostss = await postsRepository.getAllPosts(page);
+    const allPostss = await postsRepository.getAllPosts(
+      page,
+      startDate,
+      endDate
+    );
     console.log(
       "OK getAll POSTS: ",
       allPostss.map((el) => el.dataValues)

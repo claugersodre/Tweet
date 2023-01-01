@@ -1,5 +1,9 @@
 const Posts = require("../models/posts.js");
 const User = require("../models/users.js");
+const RePost = require("../models/rePost.js");
+const luxon = require("luxon");
+const { Op } = require("sequelize");
+
 const createPosts = async (PostsModel) => {
   try {
     const posts = await Posts.create(PostsModel);
@@ -48,14 +52,42 @@ const getPostsByUserId = async (userId) => {
     return error;
   }
 };
-const getAllPosts = async (page) => {
+const getAllPosts = async (page, startDate, endDate) => {
   try {
+    // Getting day whitout hour to endDate
+    let queryEndDate = luxon.DateTime.local()
+      .minus({ days: endDate })
+      .toISO()
+      .split("T");
+    queryEndDate = queryEndDate[0] + "T23:59:59.999Z";
+    // Getting day whitout hour to startDate
+    let queryStartDate = luxon.DateTime.local()
+      .minus({ days: startDate })
+      .toISO()
+      .split("T");
+    queryStartDate = queryStartDate[0] + "T00:00:00.000Z";
+    // Valid dateTime to filter "2018-07-08T14:06:48.000Z", "2023-10-08T22:33:54.000Z"
     // Get Pagination Limit
     const limitPage = process.env.PAGINATION * 1;
     return await Posts.findAll({
+      where: {
+        createdAt: {
+          [Op.between]: [queryStartDate, queryEndDate]
+        }
+      },
       offset: page || 0,
       limit: limitPage,
-      order: [["createdAt", "DESC"]]
+      // order: [["createdAt", "DESC"]],
+      include: [
+        {
+          model: RePost
+        }
+      ],
+      order: [
+        ["createdAt", "DESC"],
+        // then sort by the nested model.
+        [RePost, "createdAt", "DESC"]
+      ]
     });
   } catch (error) {
     return error;
