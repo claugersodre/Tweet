@@ -39,24 +39,31 @@ const getUserById = async (id) => {
   }
 };
 const getUserByIdAndUsersPosts = async (id) => {
-  const endDate = luxon.DateTime.now();
-  const startDate = luxon.DateTime.local().minus({ days: 7 });
+  let queryEndDate = luxon.DateTime.local()
+    .minus({ days: 0 })
+    .toISO()
+    .split("T");
+  queryEndDate = queryEndDate[0] + "T23:59:59.999Z";
+  // Getting day whitout hour to startDate
+  let queryStartDate = luxon.DateTime.local()
+    .minus({ days: 365 })
+    .toISO()
+    .split("T");
+  queryStartDate = queryStartDate[0] + "T00:00:00.000Z";
   // Valid dateTime to filter "2018-07-08T14:06:48.000Z", "2023-10-08T22:33:54.000Z"
   try {
     const result = await User.findOne({
       where: {
-        [Op.and]: [
-          { id },
-          {
-            createdAt: {
-              [Op.between]: [startDate, endDate]
-            }
-          }
-        ]
+        id
       },
       include: [
         {
           model: Post,
+          where: {
+            createdAt: {
+              [Op.between]: [queryStartDate, queryEndDate]
+            }
+          },
           include: {
             model: RePost
           }
