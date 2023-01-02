@@ -21,7 +21,18 @@ const Quote = db.define("quotes", {
 });
 
 Quote.associate = function (models) {
-  Quote.belongsTo(models.posts, { foreignKey: "id", as: "postId" });
+  Quote.belongsTo(models.posts, {
+    foreignKey: "id",
+    as: "postId",
+    allowNull: true
+  });
+};
+Quote.associate = function (models) {
+  Quote.belongsTo(models.reposts, {
+    foreignKey: "id",
+    as: "repostId",
+    allowNull: true
+  });
 };
 Quote.associate = function (models) {
   Quote.belongsTo(models.users, { foreignKey: "id", as: "userId" });

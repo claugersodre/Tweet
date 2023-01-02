@@ -1,5 +1,6 @@
 const User = require("../models/users.js");
 const Post = require("../models/posts.js");
+const Quote = require("../models/quote.js");
 const RePost = require("../models/rePost.js");
 const luxon = require("luxon");
 const { Op } = require("sequelize");
@@ -38,15 +39,15 @@ const getUserById = async (id) => {
     return error;
   }
 };
-const getUserByIdAndUsersPosts = async (id, page) => {
+const getUserByIdAndUsersPosts = async (id, page, startDate, endDate) => {
   let queryEndDate = luxon.DateTime.local()
-    .minus({ days: 0 })
+    .minus({ days: endDate })
     .toISO()
     .split("T");
   queryEndDate = queryEndDate[0] + "T23:59:59.999Z";
   // Getting day whitout hour to startDate
   let queryStartDate = luxon.DateTime.local()
-    .minus({ days: 365 })
+    .minus({ days: startDate })
     .toISO()
     .split("T");
   queryStartDate = queryStartDate[0] + "T00:00:00.000Z";
@@ -67,16 +68,26 @@ const getUserByIdAndUsersPosts = async (id, page) => {
               [Op.between]: [queryStartDate, queryEndDate]
             }
           },
-          include: {
-            model: RePost
-          }
+          include: [
+            {
+              model: RePost,
+              include: {
+                model: Quote
+              }
+            },
+            {
+              model: Quote
+            }
+          ]
         }
       ],
       order: [
         // sort by High model, in descending order first.
         [Post, "createdAt", "DESC"],
         // then sort by the nested model.
-        [Post, RePost, "createdAt", "DESC"]
+        [Post, Quote, "createdAt", "DESC"],
+        [Post, RePost, "createdAt", "DESC"],
+        [Post, RePost, Quote, "createdAt", "DESC"]
       ]
     });
     if (result) {

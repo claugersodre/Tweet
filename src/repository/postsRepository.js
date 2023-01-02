@@ -1,5 +1,6 @@
 const Posts = require("../models/posts.js");
 const RePost = require("../models/rePost.js");
+const Quote = require("../models/quote.js");
 const luxon = require("luxon");
 const { Op } = require("sequelize");
 
@@ -79,13 +80,20 @@ const getAllPosts = async (page, startDate, endDate) => {
       // order: [["createdAt", "DESC"]],
       include: [
         {
-          model: RePost
+          model: RePost,
+          include: {
+            model: Quote
+          }
+        },{
+          model:Quote
         }
       ],
       order: [
         ["createdAt", "DESC"],
         // then sort by the nested model.
-        [RePost, "createdAt", "DESC"]
+        [RePost, "createdAt", "DESC"],
+        [Quote, "createdAt", "DESC"],
+        [RePost, Quote, "createdAt", "DESC"]
       ]
     });
   } catch (error) {
