@@ -45,7 +45,7 @@ const User = db.define("users", {
     }
   }
 });
-User.hasMany(Post);
-User.hasMany(RePost);
-User.hasMany(Quote);
+// User.hasMany(Post);
+// User.hasMany(RePost);
+// User.hasMany(Quote);
 module.exports = User;

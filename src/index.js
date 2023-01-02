@@ -8,12 +8,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const sequelize = require("./utils/database.js");
 const router = require("./routes/router.js");
+const association = require("./models/associations")
 const port = process.env.PORT || 3000;
 
 (async () => {
   try {
+    association.association();
     await sequelize.sync(
-      { force: false }, // Reset db every time
+      { force: true }, // Reset db every time
       { alter: true }
     );
     app.listen(port, function () {

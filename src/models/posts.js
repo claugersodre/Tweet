@@ -22,10 +22,10 @@ const Post = db.define("posts", {
   }
 });
 
-Post.associate = function (models) {
-  Post.belongsTo(models.users, { foreignKey: "id", as: "userId" });
-};
+// Post.associate = function (models) {
+//   Post.belongsTo(models.users, { foreignKey: "id", as: "userId" });
+// };
 
-Post.hasMany(RePost);
-Post.hasMany(Quote);
+// Post.hasMany(RePost);
+// Post.hasMany(Quote);
 module.exports = Post;

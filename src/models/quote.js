@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const db = require("../utils/database");
-
+const RePost = require("./rePost");
 const Quote = db.define("quotes", {
   id: {
     type: DataTypes.INTEGER,
@@ -20,22 +20,25 @@ const Quote = db.define("quotes", {
   }
 });
 
-Quote.associate = function (models) {
-  Quote.belongsTo(models.posts, {
-    foreignKey: "id",
-    as: "postId",
-    allowNull: true
-  });
-};
-Quote.associate = function (models) {
-  Quote.belongsTo(models.reposts, {
-    foreignKey: "id",
-    as: "repostId",
-    allowNull: true
-  });
-};
-Quote.associate = function (models) {
-  Quote.belongsTo(models.users, { foreignKey: "id", as: "userId" });
-};
+// Quote.associate = function (models) {
+//   Quote.belongsTo(models.posts, {
+//     foreignKey: "id",
+//     as: "postId",
+//     allowNull: true
+//   });
+// };
+// if (!db.models.reposts) {
+//   db.models.reposts = RePost;
+// }
+// Quote.associate = function (models) {
+//   Quote.belongsToMany(db.models.reposts, {
+//     foreignKey: "id",
+//     as: "repostId",
+//     through: "quoterepost"
+//   });
+// };
+// Quote.associate = function (models) {
+//   Quote.belongsTo(models.users, { foreignKey: "id", as: "userId" });
+// };
 
 module.exports = Quote;
