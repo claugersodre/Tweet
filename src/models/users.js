@@ -3,6 +3,8 @@ const db = require("../utils/database");
 const Post = require("./posts.js");
 const RePost = require("./rePost.js");
 const hash = require("../services/hashFunction.js");
+const luxon = require("luxon");
+
 const User = db.define("users", {
   id: {
     type: DataTypes.INTEGER,
@@ -27,6 +29,16 @@ const User = db.define("users", {
     allowNull: false,
     set(value) {
       this.setDataValue("password", hash.hash(value));
+    }
+  },
+  joined: {
+    type: DataTypes.VIRTUAL,
+    allowNull: true,
+    get() {
+      const rawValue = this.getDataValue("createdAt");
+      return rawValue
+        ? luxon.DateTime.utc(rawValue).toFormat("MMM dd, yyyy")
+        : null;
     }
   }
 });

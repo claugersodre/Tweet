@@ -51,7 +51,7 @@ const getUserByIdAndUsersPosts = async (id, page) => {
     .split("T");
   queryStartDate = queryStartDate[0] + "T00:00:00.000Z";
   // Valid dateTime to filter "2018-07-08T14:06:48.000Z", "2023-10-08T22:33:54.000Z"
-  const limitPage = process.env.PAGINATION * 1;
+  const limitPage = process.env.USER_PAGINATION * 1;
   try {
     const result = await User.findOne({
       where: {
