@@ -16,6 +16,8 @@ const User = db.define("users", {
   username: {
     type: DataTypes.STRING,
     allowNull: false,
+    isAlphanumeric: true,
+    len: [1, 14],
     unique: true
   },
   email: {

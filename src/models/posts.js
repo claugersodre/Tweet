@@ -13,6 +13,7 @@ const Post = db.define("posts", {
   message: {
     type: DataTypes.STRING,
     allowNull: false,
+    len: [1, 777],
     unique: false
   },
   data: {

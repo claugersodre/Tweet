@@ -4,6 +4,8 @@ const router = express.Router();
 const postsRepository = require("../repository/postsRepository.js");
 
 router.post("/create", async function (req, res) {
+  // A user is not allowed to post more than 5 posts
+  // in one day (including reposts and quote posts)
   if (typeof req.body === "undefined") {
     return res.status(400).json({ message: "Need to provide a body" });
   }
@@ -51,35 +53,6 @@ router.post("/getAll/", async function (req, res) {
   }
 });
 
-router.put("/:id", async function (req, res) {
-  if (req.params.id == null) {
-    return res.status(400).json({ message: "Missing Posts id" });
-  }
-  if (typeof req.body === "undefined") {
-    return res.status(400).json({ message: "Need to provide a body" });
-  }
-  if (
-    typeof req.body.message === "undefined" ||
-    typeof req.body.user === "undefined"
-  ) {
-    return res.status(400).json({ message: "Some parameter are missing" });
-  }
-  const postsModel = {
-    message: req.body.message,
-    userId: req.body.user,
-    data: luxon.DateTime.now()
-  };
-  try {
-    const posts = await postsRepository.updatePostsById(
-      req.params.id,
-      postsModel
-    );
-    return res.status(posts.status ? posts.status : 200).json(posts);
-  } catch (error) {
-    console.log(`ERROR in Update Posts ${req.params.id}`, error);
-    return res.status(500).json(error);
-  }
-});
 router.get("/:id", async function (req, res) {
   if (req.params.id == null) {
     return res.status(400).json({ message: "Missing Posts id" });
@@ -93,18 +66,6 @@ router.get("/:id", async function (req, res) {
   }
 });
 
-router.delete("/:id", async function (req, res) {
-  if (req.params.id == null) {
-    return res.status(400).json({ message: "Missing Posts id" });
-  }
-  try {
-    const posts = await postsRepository.deletePostsById(req.params.id);
-    return res.status(posts.status ? posts.status : 200).json(posts);
-  } catch (error) {
-    console.log(`ERROR in Delete Posts ${req.params.id}`, error);
-    return res.status(500).json(error);
-  }
-});
 router.get("/userId/:id", async function (req, res) {
   if (req.params.id == null) {
     return res.status(400).json({ message: "Missing Posts id" });

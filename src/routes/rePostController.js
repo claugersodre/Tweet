@@ -4,6 +4,7 @@ const router = express.Router();
 const rePostsRepository = require("../repository/rePostsRepository.js");
 
 router.post("/create", async function (req, res) {
+  // User can repost Post or Quote-post
   if (typeof req.body === "undefined") {
     return res.status(400).json({ message: "Need to provide a body" });
   }
