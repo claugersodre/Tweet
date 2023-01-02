@@ -1,5 +1,4 @@
 const RePosts = require("../models/rePost.js");
-const User = require("../models/users.js");
 const createRePosts = async (RePostsModel) => {
   try {
     const rePost = await RePosts.create(RePostsModel);

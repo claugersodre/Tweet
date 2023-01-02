@@ -1,5 +1,4 @@
 const Posts = require("../models/posts.js");
-const User = require("../models/users.js");
 const RePost = require("../models/rePost.js");
 const luxon = require("luxon");
 const { Op } = require("sequelize");

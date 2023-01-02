@@ -81,12 +81,21 @@ router.get("/:id", async function (req, res) {
     return res.status(500).json(error);
   }
 });
-router.get("/:id/posts", async function (req, res) {
+router.post("/:id/posts", async function (req, res) {
   if (req.params.id == null) {
     return res.status(400).json({ message: "Missing Posts id" });
   }
+  let page = req.body.page ? req.body.page * 1 - 1 : 0;
+  const startDate = req.body.startDate ? req.body.startDate * 1 : 365;
+  const endDate = req.body.endDate ? req.body.endDate * 1 : 0;
+  page *= process.env.PAGINATION * 1;
   try {
-    const user = await userRepository.getUserByIdAndUsersPosts(req.params.id);
+    const user = await userRepository.getUserByIdAndUsersPosts(
+      req.params.id,
+      page,
+      startDate,
+      endDate
+    );
     return res.status(user.status ? user.status : 200).json(user);
   } catch (error) {
     console.log(`ERROR in Get User ${req.params.id}`, error);

@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const db = require("../utils/database");
 const Post = require("./posts.js");
 const RePost = require("./rePost.js");

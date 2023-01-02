@@ -38,7 +38,7 @@ const getUserById = async (id) => {
     return error;
   }
 };
-const getUserByIdAndUsersPosts = async (id) => {
+const getUserByIdAndUsersPosts = async (id, page) => {
   let queryEndDate = luxon.DateTime.local()
     .minus({ days: 0 })
     .toISO()
@@ -51,11 +51,14 @@ const getUserByIdAndUsersPosts = async (id) => {
     .split("T");
   queryStartDate = queryStartDate[0] + "T00:00:00.000Z";
   // Valid dateTime to filter "2018-07-08T14:06:48.000Z", "2023-10-08T22:33:54.000Z"
+  const limitPage = process.env.PAGINATION * 1;
   try {
     const result = await User.findOne({
       where: {
         id
       },
+      offset: page || 0,
+      limit: limitPage,
       include: [
         {
           model: Post,
@@ -79,7 +82,7 @@ const getUserByIdAndUsersPosts = async (id) => {
     if (result) {
       return result;
     } else {
-      return { message: `Can't find user with id ${id}`, status: 404 };
+      return { message: `Can't find user's post with id ${id}`, status: 404 };
     }
   } catch (error) {
     return error;
