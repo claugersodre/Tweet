@@ -1,6 +1,8 @@
 const { DataTypes } = require("sequelize");
 const db = require("../utils/database");
 const RePost = require("./rePost.js");
+const Quote = require("./quote.js");
+
 const Post = db.define("posts", {
   id: {
     type: DataTypes.INTEGER,
@@ -24,4 +26,5 @@ Post.associate = function (models) {
 };
 
 Post.hasMany(RePost);
+Post.hasMany(Quote);
 module.exports = Post;

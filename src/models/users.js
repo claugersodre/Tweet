@@ -1,9 +1,10 @@
 const { DataTypes } = require("sequelize");
+const luxon = require("luxon");
 const db = require("../utils/database");
 const Post = require("./posts.js");
 const RePost = require("./rePost.js");
+const Quote = require("./quote.js");
 const hash = require("../services/hashFunction.js");
-const luxon = require("luxon");
 
 const User = db.define("users", {
   id: {
@@ -44,4 +45,5 @@ const User = db.define("users", {
 });
 User.hasMany(Post);
 User.hasMany(RePost);
+User.hasMany(Quote);
 module.exports = User;
