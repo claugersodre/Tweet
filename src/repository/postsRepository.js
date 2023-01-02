@@ -82,10 +82,20 @@ const getAllPosts = async (page, startDate, endDate) => {
         {
           model: RePost,
           include: {
-            model: Quote
+            model: Quote,
+            include: {
+              model: RePost
+            }
           }
-        },{
-          model:Quote
+        },
+        {
+          model: Quote,
+          include: {
+            model: RePost,
+            include: {
+              model: Quote
+            }
+          }
         }
       ],
       order: [
@@ -93,7 +103,8 @@ const getAllPosts = async (page, startDate, endDate) => {
         // then sort by the nested model.
         [RePost, "createdAt", "DESC"],
         [Quote, "createdAt", "DESC"],
-        [RePost, Quote, "createdAt", "DESC"]
+        [RePost, Quote, "createdAt", "DESC"],
+        [Quote, RePost, "createdAt", "DESC"]
       ]
     });
   } catch (error) {

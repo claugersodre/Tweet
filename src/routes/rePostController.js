@@ -9,13 +9,17 @@ router.post("/create", async function (req, res) {
     return res.status(400).json({ message: "Need to provide a body" });
   }
   if (
-    typeof req.body.postId === "undefined" ||
+    (typeof req.body.postId === "undefined" &&
+      typeof req.body.quoteId === "undefined") ||
     typeof req.body.userId === "undefined"
   ) {
     return res.status(400).json({ message: "Some parameter are missing" });
   }
+  const postId = req.body.postId ? req.body.postId : null;
+  const quoteId = req.body.quoteId ? req.body.quoteId : null;
   const rePostsModel = {
-    postId: req.body.postId,
+    postId,
+    quoteId,
     userId: req.body.userId,
     data: luxon.DateTime.now()
   };
@@ -54,13 +58,17 @@ router.put("/:id", async function (req, res) {
     return res.status(400).json({ message: "Need to provide a body" });
   }
   if (
-    typeof req.body.postId === "undefined" ||
+    (typeof req.body.postId === "undefined" &&
+      typeof req.body.quoteId === "undefined") ||
     typeof req.body.userId === "undefined"
   ) {
     return res.status(400).json({ message: "Some parameter are missing" });
   }
+  const postId = req.body.postId ? req.body.postId : null;
+  const quoteId = req.body.quoteId ? req.body.quoteId : null;
   const rePostsModel = {
-    postId: req.body.postId,
+    postId,
+    quoteId,
     userId: req.body.userId,
     data: luxon.DateTime.now()
   };

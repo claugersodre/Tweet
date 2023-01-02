@@ -72,11 +72,20 @@ const getUserByIdAndUsersPosts = async (id, page, startDate, endDate) => {
             {
               model: RePost,
               include: {
-                model: Quote
+                model: Quote,
+                include: {
+                  model: RePost
+                }
               }
             },
             {
-              model: Quote
+              model: Quote,
+              include: {
+                model: RePost,
+                include: {
+                  model: Quote
+                }
+              }
             }
           ]
         }
@@ -87,7 +96,8 @@ const getUserByIdAndUsersPosts = async (id, page, startDate, endDate) => {
         // then sort by the nested model.
         [Post, Quote, "createdAt", "DESC"],
         [Post, RePost, "createdAt", "DESC"],
-        [Post, RePost, Quote, "createdAt", "DESC"]
+        [Post, RePost, Quote, "createdAt", "DESC"],
+        [Post, Quote, RePost, "createdAt", "DESC"]
       ]
     });
     if (result) {
