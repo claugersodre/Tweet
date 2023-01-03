@@ -2,6 +2,7 @@ const Post = require("./posts");
 const User = require("./users");
 const Quote = require("./quote");
 const RePost = require("./rePost");
+
 const association = () => {
   console.log(Post, User);
 

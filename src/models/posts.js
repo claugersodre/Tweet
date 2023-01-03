@@ -1,7 +1,5 @@
 const { DataTypes } = require("sequelize");
 const db = require("../utils/database");
-const RePost = require("./rePost.js");
-const Quote = require("./quote.js");
 
 const Post = db.define("posts", {
   id: {
@@ -22,10 +20,4 @@ const Post = db.define("posts", {
   }
 });
 
-// Post.associate = function (models) {
-//   Post.belongsTo(models.users, { foreignKey: "id", as: "userId" });
-// };
-
-// Post.hasMany(RePost);
-// Post.hasMany(Quote);
 module.exports = Post;
