@@ -1,0 +1,604 @@
+{
+	"info": {
+		"_postman_id": "c22cb50c-2cfe-47f0-b42d-c14c333091d0",
+		"name": "Posterr",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User ById and Posts, Reposts and quotes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"page\": 0,\n    \"startDate\": 0,\n    \"endDate\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/users/2/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"users",
+								"2",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"username\" :\"Clauger\",\n   \"email\":\"clauger@clauger\",\n   \"password\": \"Clauger123\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/users/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"users",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User ById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/users/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"username\" :\"tito\",\n   \"email\":\"tito@tito.com.br\",\n   \"password\": \"clauger123\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/users/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Get all Posts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"page\": 0,\n    \"startDate\": 0,\n    \"endDate\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/posts/getAll/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"posts",
+								"getAll",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/posts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post By userId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/posts/userId/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"posts",
+								"userId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"Hi everyone\",\n    \"user\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/users/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post ById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/users/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"message\" :\"what's up\",\n   \"user\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/posts/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"posts",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rePosts",
+			"item": [
+				{
+					"name": "Get rePosts By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/rePosts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"rePosts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get rePosts By userId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/rePosts/userId/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"rePosts",
+								"userId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update rePosts",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"postId\": 3,\n    \"userId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/rePosts/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"rePosts",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all rePosts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/rePosts/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"rePosts",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete rePosts ById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/rePosts/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"rePosts",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a rePosts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"postId\": 6,\n   \"userId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/rePosts/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"rePosts",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quote",
+			"item": [
+				{
+					"name": "Get Quote By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/quote/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"quote",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quote By userId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/quote/userId/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"quote",
+								"userId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Quote",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"repostId\": 3,\n    \"userId\": 2,\n    \"comment\": \"Very Nice bro\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/quote/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"quote",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Quotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/quote/getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"quote",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Quote ById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/quote/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"quote",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Quote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"repostId\": 3,\n    \"postId\":3,\n    \"userId\": 2,\n    \"comment\": \"well well...\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:{{port_posterr}}/quote/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port_posterr}}",
+							"path": [
+								"quote",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
