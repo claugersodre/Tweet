@@ -15,6 +15,10 @@
     ```sh
     docker-compose up --build -d
     ```
+- To seed database, in the project'root run the command
+    ```sh
+    command npx sequelize db:seed:all
+    ```
 - the backend will start on 
     ```sh
     http://localhost:3001

@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "posterr",
+    "password": "posterr123",
+    "database": "posterr",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port":5430
+  },
+  "test": {
+    "username": "posterr",
+    "password": "posterr123",
+    "database": "posterr",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port":5430
+  },
+  "production": {
+    "username": "posterr",
+    "password": "posterr123",
+    "database": "posterr",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port":5430
+  }
+}
