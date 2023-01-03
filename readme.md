@@ -26,7 +26,22 @@
     ```sh
     command docker-compose down
     ```
-
+- to run lint run
+```sh
+    command npm run lint
+    ```
+- to run test run
+```sh
+    command npm run test
+    ```
 ## Critique
 - Database may be a problem because it has a max number of connections.
-- How this project was made with docker containers it was made to fit scaling.
+- How this project was made with docker containers it was made to fit scaling. A simple way to verify it is running a docker-compose and a debug instance with commands:
+```sh
+    command docker-compose down
+    ```
+and
+```sh
+    command npm run start:dev
+    ```
+Will run one instance on http://localhost:3000 and another one on http://localhost:3001 connected on the same database.
