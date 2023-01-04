@@ -3,7 +3,7 @@
     "username": "posterr",
     "password": "posterr123",
     "database": "posterr",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "postgres",
     "port":5430
   },

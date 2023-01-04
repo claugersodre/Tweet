@@ -2,6 +2,7 @@ const express = require("express");
 const luxon = require("luxon");
 const router = express.Router();
 const rePostsRepository = require("../repository/rePostsRepository.js");
+const { postIsNotAllowed } = require("../repository/userRepository");
 
 router.post("/create", async function (req, res) {
   // User can repost Post or Quote-post
@@ -14,6 +15,9 @@ router.post("/create", async function (req, res) {
     typeof req.body.userId === "undefined"
   ) {
     return res.status(400).json({ message: "Some parameter are missing" });
+  }
+  if (await postIsNotAllowed(req.body.userId)) {
+    return res.status(403).json({ message: "daily limit exceeded" });
   }
   const postId = req.body.postId ? req.body.postId : null;
   const quoteId = req.body.quoteId ? req.body.quoteId : null;

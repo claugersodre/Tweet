@@ -2,10 +2,11 @@ const express = require("express");
 const luxon = require("luxon");
 const router = express.Router();
 const postsRepository = require("../repository/postsRepository.js");
-
+const { postIsNotAllowed } = require("../repository/userRepository");
 router.post("/create", async function (req, res) {
   // A user is not allowed to post more than 5 posts
   // in one day (including reposts and quote posts)
+
   if (typeof req.body === "undefined") {
     return res.status(400).json({ message: "Need to provide a body" });
   }
@@ -14,6 +15,9 @@ router.post("/create", async function (req, res) {
     typeof req.body.user === "undefined"
   ) {
     return res.status(400).json({ message: "Some parameter are missing" });
+  }
+  if (await postIsNotAllowed(req.body.user)) {
+    return res.status(403).json({ message: "daily limit exceeded" });
   }
   const postsModel = {
     message: req.body.message,

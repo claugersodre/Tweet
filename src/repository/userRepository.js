@@ -128,7 +128,76 @@ const updateUserById = async (id, userModel) => {
     return error;
   }
 };
+const postIsNotAllowed = async (id) => {
+  let queryEndDate = luxon.DateTime.local().toISO().split("T");
+  queryEndDate = queryEndDate[0] + "T23:59:59.999Z";
+  // Getting day whitout hour to startDate
+  let queryStartDate = luxon.DateTime.local().toISO().split("T");
+  queryStartDate = queryStartDate[0] + "T00:00:00.000Z";
+  let dailyMessages = 0;
+  const postRows = await User.findAll({
+    where: {
+      id
+    },
+    include: [
+      {
+        model: Post,
+        where: {
+          createdAt: {
+            [Op.between]: [queryStartDate, queryEndDate]
+          }
+        }
+      }
+    ]
+  });
+  const rePostRows = await User.findAll({
+    where: {
+      id
+    },
+    include: [
+      {
+        model: RePost,
+        where: {
+          createdAt: {
+            [Op.between]: [queryStartDate, queryEndDate]
+          }
+        }
+      }
+    ]
+  });
+  const quoteRows = await User.findAll({
+    where: {
+      id
+    },
+    include: [
+      {
+        model: Quote,
+        where: {
+          createdAt: {
+            [Op.between]: [queryStartDate, queryEndDate]
+          }
+        }
+      }
+    ]
+  });
+
+  dailyMessages += postRows[0]?.dataValues?.posts
+    ? postRows[0].dataValues.posts.length
+    : 0;
+  dailyMessages += quoteRows[0]?.dataValues?.quotes
+    ? quoteRows[0].dataValues.quotes.length
+    : 0;
+  dailyMessages += rePostRows[0]?.dataValues?.reposts
+    ? rePostRows[0].dataValues.reposts.length
+    : 0;
+  if (dailyMessages >= 5) {
+    return true;
+  } else {
+    return false;
+  }
+};
 const factory = {
+  postIsNotAllowed,
   createUser,
   getUserById,
   getAllUsers,

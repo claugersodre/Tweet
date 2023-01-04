@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
   try {
     association.association();
     await sequelize.sync(
-      { force: true } // Reset db every time
+      { force: false } // Reset db every time
     );
     app.listen(port, function () {
       console.log("listen on port " + port);

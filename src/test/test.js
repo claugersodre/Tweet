@@ -1,13 +1,10 @@
 const chai = require("chai");
-const axios = require("axios");
-const MockAdapter = require("axios-mock-adapter");
 const PostRepository = require("../repository/postsRepository");
 const userRepository = require("../repository/userRepository");
 const quoteRepository = require("../repository/quoteRepository");
 const rePostRepository = require("../repository/rePostsRepository");
 const sinon = require("sinon");
 // This sets the mock adapter on the default instance
-const mock = new MockAdapter(axios);
 
 describe("Post Message", async () => {
   it("Test PostRepository Create method", async () => {
@@ -77,19 +74,6 @@ describe("Post Message", async () => {
   });
 });
 describe("User ", async () => {
-  let userResponse = {};
-  beforeEach(async () => {
-    userResponse = {
-      joined: "Jan 03, 2023",
-      id: 5,
-      username: "otherUser2",
-      email: "otherUser1@otherUser.com.br",
-      password: "4285bca7c7370300a02c6544a1f2f2c66a5cb637",
-      updatedAt: "2023-01-03T15:59:51.305Z",
-      createdAt: "2023-01-03T15:59:51.305Z"
-    };
-  });
-
   it("Test UserRepository GetUserPosts method", async () => {
     const id = 2;
     const page = 1;
@@ -344,7 +328,6 @@ describe("RePost Message", async () => {
     // Restore stub
   });
 
-  
   it("Test rePostRepository Delete method", async () => {
     const id = 1;
     const message = "RePost deleted with success";
