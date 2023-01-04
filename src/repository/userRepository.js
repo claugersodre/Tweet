@@ -129,10 +129,10 @@ const updateUserById = async (id, userModel) => {
   }
 };
 const postIsNotAllowed = async (id) => {
-  let queryEndDate = luxon.DateTime.local().toISO().split("T");
+  let queryEndDate = luxon.DateTime.utc().toISO().split("T");
   queryEndDate = queryEndDate[0] + "T23:59:59.999Z";
   // Getting day whitout hour to startDate
-  let queryStartDate = luxon.DateTime.local().toISO().split("T");
+  let queryStartDate = luxon.DateTime.utc().toISO().split("T");
   queryStartDate = queryStartDate[0] + "T00:00:00.000Z";
   let dailyMessages = 0;
   const postRows = await User.findAll({
